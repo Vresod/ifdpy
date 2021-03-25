@@ -1,4 +1,6 @@
-import requests,json
+import requests
+import json
+import sys
 
 api_url = "https://discord.com/api/v8"
 
@@ -7,6 +9,8 @@ class Discord:
 	Does the discord stuff. Most functions that do requests accept setting the `raw` argument to True to get the request as opposed to the text in it.
 	"""
 	def __init__(self,token:str,bot = True):
+		if not bot:
+			print("WARNING: Automating a non-bot user is forbidden by Discord and may result in an account termination.",file=sys.stderr)
 		self.token = "Bot " + token if bot else token
 		self.authorization = {"Authorization":self.token}
 	def send(self,channelid:int,data:dict,raw:bool=False):
